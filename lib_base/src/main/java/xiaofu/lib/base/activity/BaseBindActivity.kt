@@ -22,6 +22,14 @@ abstract class BaseBindActivity<T : ViewDataBinding> : BaseActivity() {
         initialize(binding)
     }
 
+    override fun bindListener() {
+        bindListener(binding)
+    }
+
     abstract fun initialize(binding: T)
+
+    protected open fun bindListener(binding: T) {
+
+    }
 
 }

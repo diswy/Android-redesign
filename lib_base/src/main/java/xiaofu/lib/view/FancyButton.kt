@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.Gravity
 import androidx.appcompat.widget.AppCompatButton
 import xiaofu.lib.base.R
 import xiaofu.lib.view.drawable.Constants
@@ -21,9 +22,9 @@ class FancyButton @JvmOverloads constructor(context: Context?, attrs: AttributeS
     private var mShape: Int = Constants.RECT// 样式
     private var mBorderType: Int = Constants.LINE// 边框样式
     private var mBorderWidth: Float = 0f// 边框宽度
-    private var mBorderColor: Int = Constants.DEFAULT_COLOR// 边框颜色
-    private var mSolidNormal: Int = Constants.DEFAULT_COLOR// 实体颜色普通
-    private var mSolidPressed: Int = Constants.DEFAULT_COLOR// 实体颜色按压状态
+    private var mBorderColor: Int = Constants.DEFAULT_BORDER// 边框颜色
+    private var mSolidNormal: Int = Constants.DEFAULT_TRANSPARENT// 实体颜色普通
+    private var mSolidPressed: Int = Constants.DEFAULT_PRESSED// 实体颜色按压状态
     private var mRipple: Boolean = true// 是否使用水波纹效果
 
     init {
@@ -32,9 +33,9 @@ class FancyButton @JvmOverloads constructor(context: Context?, attrs: AttributeS
             mShape = a.getInteger(R.styleable.FancyButton_fb_shape, Constants.RECT)
             mBorderType = a.getInteger(R.styleable.FancyButton_fb_border_type, Constants.LINE)
             mBorderWidth = a.getDimension(R.styleable.FancyButton_fb_border_width, 0f)
-            mBorderColor = a.getInteger(R.styleable.FancyButton_fb_border_color, Constants.DEFAULT_COLOR)
-            mSolidNormal = a.getInteger(R.styleable.FancyButton_fb_solid_normal, Constants.DEFAULT_COLOR)
-            mSolidPressed = a.getInteger(R.styleable.FancyButton_fb_solid_pressed, Constants.DEFAULT_COLOR)
+            mBorderColor = a.getInteger(R.styleable.FancyButton_fb_border_color, Constants.DEFAULT_BORDER)
+            mSolidNormal = a.getInteger(R.styleable.FancyButton_fb_solid_normal, Constants.DEFAULT_TRANSPARENT)
+            mSolidPressed = a.getInteger(R.styleable.FancyButton_fb_solid_pressed, Constants.DEFAULT_PRESSED)
             mRipple = a.getBoolean(R.styleable.FancyButton_fb_ripple, true)
             a.recycle()
 

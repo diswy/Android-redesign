@@ -4,10 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
+
+        <xiaofu.lib.view.FancyButton
+            android:id="@+id/btnGoLogin"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:text="测试按钮并跳转到登陆页"
+            app:fb_border_width="1dp" />
+
+        <xiaofu.lib.view.FancyText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:text="带颜色的字"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:ft_color_pressed="#33e5e5" />
 
         <FrameLayout
             android:id="@+id/home_frag_container"

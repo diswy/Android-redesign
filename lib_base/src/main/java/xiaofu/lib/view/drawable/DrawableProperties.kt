@@ -74,7 +74,7 @@ data class DrawableProperties(
 
         // ripple
         @JvmField var useRipple: Boolean = false,
-        @JvmField var rippleColor: Int = Constants.DEFAULT_COLOR,
+        @JvmField var rippleColor: Int = Constants.DEFAULT_RIPPLE,
         @JvmField var rippleColorStateList: ColorStateList? = null,
         @JvmField var rippleRadius: Int = -1
 ) : Parcelable {

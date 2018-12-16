@@ -34,4 +34,9 @@
         <attr name="fg_ripple" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="FancyText">
+        <attr name="ft_color_pressed" format="color"/>
+        <attr name="ft_color_normal" format="color"/>
+    </declare-styleable>
+
 </resources>

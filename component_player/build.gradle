@@ -1,7 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -19,17 +16,6 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
-    }
-
-    kapt {
-        generateStubs = true
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.getName())
-        }
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -40,9 +26,5 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':lib_base')
-
-    kapt deps.kapt.arouter_compiler
-    kapt deps.kapt.databinding_compiler
-    kapt deps.kapt.dagger2
+    api 'cn.jiajunhui:exoplayer:334_291_007'
 }

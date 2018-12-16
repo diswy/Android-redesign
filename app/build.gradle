@@ -42,6 +42,7 @@ dependencies {
     implementation project(':lib_base')
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
     implementation project(':module_student_user')
+    implementation project(':component_player')
 
     kapt deps.kapt.arouter_compiler
     kapt deps.kapt.databinding_compiler

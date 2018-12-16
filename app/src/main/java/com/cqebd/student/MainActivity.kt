@@ -7,6 +7,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.cqebd.student.databinding.ActivityMainBinding
 import xiaofu.lib.base.activity.BaseBindActivity
+import xiaofu.lib.inline.onClick
 
 class MainActivity : BaseBindActivity<ActivityMainBinding>(), BottomNavigationBar.OnTabSelectedListener {
 
@@ -33,6 +34,14 @@ class MainActivity : BaseBindActivity<ActivityMainBinding>(), BottomNavigationBa
 
         binding.mainTab.setTabSelectedListener(this)
         replaceFragments(0)
+    }
+
+    override fun bindListener(binding: ActivityMainBinding) {
+        binding.btnGoLogin.onClick {
+            ARouter.getInstance()
+                    .build("/ebd/student/user/login")
+                    .navigation()
+        }
     }
 
     private fun replaceFragments(position: Int) {
