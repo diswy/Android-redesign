@@ -91,6 +91,6 @@
 -keep public class * implements com.kk.taurus.playerbase.player.IPlayer{*;}
 
 # 自定义实体不参与混淆
--keep class xiaofu.student.entity.**{*;}
+-keep class cqebd.student.vo.**{*;}
 # 继承View的自定义控件不参与混淆
 -keep public class * extends android.view.View{*;}
