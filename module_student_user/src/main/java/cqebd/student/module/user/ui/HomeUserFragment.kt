@@ -11,7 +11,7 @@ import xiaofu.lib.base.fragment.BaseBindFragment
 /**
  * 首页展示的用户信息
  */
-@Route(path = "/ebd/student/user/home")
+@Route(path = "/module_user/home")
 class HomeUserFragment : BaseBindFragment<FragmentHomeUserBinding>() {
 
     override fun getLayoutRes(): Int = R.layout.fragment_home_user
