@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -25,4 +26,7 @@ dependencies {
 
     implementation deps.kotlin.stdlib
     compileOnly 'com.google.code.gson:gson:2.8.5'
+    compileOnly deps.room.runtime
+
+    kapt deps.kapt.room
 }

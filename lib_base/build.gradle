@@ -41,6 +41,8 @@ dependencies {
     api deps.kotlin.stdlib
     api deps.lifecycle.runtime
     api deps.lifecycle.extensions
+    api deps.room.runtime
+    api deps.room.rxjava2
     api deps.architecture.navigation_fragment
     api deps.architecture.navigation_ui
     api deps.alibaba.arouter_api
@@ -65,4 +67,5 @@ dependencies {
     kapt deps.kapt.databinding_compiler
     kapt deps.kapt.glide
     kapt deps.kapt.dagger2
+    kapt deps.kapt.room
 }

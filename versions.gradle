@@ -55,6 +55,7 @@ def room = [:]
 room.runtime = "androidx.room:room-runtime:$versions.room"
 room.compiler = "androidx.room:room-compiler:$versions.room"
 room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
+room.coroutines = "androidx.room:room-coroutines:$versions.room"
 room.testing = "androidx.room:room-testing:$versions.room"
 deps.room = room
 
@@ -88,6 +89,7 @@ kapt.arouter_compiler = "com.alibaba:arouter-compiler:$versions.arouter_compiler
 kapt.databinding_compiler = "com.android.databinding:compiler:$versions.databinding"
 kapt.glide = "com.github.bumptech.glide:compiler:$versions.glide"
 kapt.dagger2 = "com.google.dagger:dagger-compiler:$versions.dagger2"
+kapt.room = "androidx.room:room-compiler:$versions.room"
 deps.kapt = kapt
 
 def glide = [:]
