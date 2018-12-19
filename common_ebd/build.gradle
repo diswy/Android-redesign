@@ -27,6 +27,8 @@ dependencies {
     implementation deps.kotlin.stdlib
     compileOnly 'com.google.code.gson:gson:2.8.5'
     compileOnly deps.room.runtime
+    compileOnly deps.dagger2.core
 
     kapt deps.kapt.room
+    kapt deps.kapt.dagger2
 }

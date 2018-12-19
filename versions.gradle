@@ -23,7 +23,7 @@ versions.arouter_api = "1.4.1"
 versions.arouter_compiler = "1.2.2"
 versions.anko = "0.10.8"
 versions.glide = "4.8.0"
-versions.dagger2 = "2.19"
+versions.dagger2 = "2.16"
 versions.rxjava2 = "2.2.4"
 
 def deps = [:]
@@ -89,6 +89,7 @@ kapt.arouter_compiler = "com.alibaba:arouter-compiler:$versions.arouter_compiler
 kapt.databinding_compiler = "com.android.databinding:compiler:$versions.databinding"
 kapt.glide = "com.github.bumptech.glide:compiler:$versions.glide"
 kapt.dagger2 = "com.google.dagger:dagger-compiler:$versions.dagger2"
+kapt.dagger2_android = "com.google.dagger:dagger-android-processor:$versions.dagger2"
 kapt.room = "androidx.room:room-compiler:$versions.room"
 deps.kapt = kapt
 
@@ -100,6 +101,9 @@ deps.glide = glide
 def dagger2 = [:]
 dagger2.core = "com.google.dagger:dagger:$versions.dagger2"
 dagger2.compiler = "com.google.dagger:dagger-compiler:$versions.dagger2"
+dagger2.android = "com.google.dagger:dagger-android:$versions.dagger2"
+dagger2.android_support = "com.google.dagger:dagger-android-support:$versions.dagger2"
+dagger2.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger2"
 deps.dagger2 = dagger2
 
 def rxjava2 = [:]
@@ -112,7 +116,9 @@ ext.deps = deps
 static def addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
-    handler.maven { url "https://jitpack.io" }
+    handler.maven {
+        url "https://jitpack.io"
+    }
 }
 
 ext.addRepos = this.&addRepos

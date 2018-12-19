@@ -46,5 +46,4 @@ dependencies {
     kapt deps.kapt.arouter_compiler
     kapt deps.kapt.databinding_compiler
     kapt deps.kapt.dagger2
-    kapt deps.kapt.room
 }

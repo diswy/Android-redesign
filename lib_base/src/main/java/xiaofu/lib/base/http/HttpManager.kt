@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
  * 网络客户端
  * Created by @author xiaofu on 2018/12/8.
  */
-class HttpManager private constructor() {
+class HttpManager{
 
     private object Instance {
         val instance = HttpManager()
