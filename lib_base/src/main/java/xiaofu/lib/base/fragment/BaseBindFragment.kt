@@ -29,4 +29,12 @@ abstract class BaseBindFragment<T : ViewDataBinding> : BaseFragment() {
 
     abstract fun initialize(activity: FragmentActivity, binding: T)
 
+    override fun bindListener() {
+        bindListener(binding)
+    }
+
+    protected open fun bindListener(binding: T) {
+
+    }
+
 }

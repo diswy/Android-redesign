@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package xiaofu.lib.tools;
+package cqebd.student.cache;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -53,7 +53,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author Michael Yang（www.yangfuhai.com） update at 2013.08.07
+ * 别人写的，忽略他的警告吧，强迫症
  */
+@SuppressWarnings("all")
 public class ACache {
     public static final int TIME_HOUR = 60 * 60;
     public static final int TIME_DAY = TIME_HOUR * 24;
@@ -884,4 +886,3 @@ public class ACache {
     }
 
 }
-

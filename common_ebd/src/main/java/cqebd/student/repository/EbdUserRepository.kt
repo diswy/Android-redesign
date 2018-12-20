@@ -1,13 +1,12 @@
 package cqebd.student.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import cqebd.student.cache.EbdMemoryCache
-import cqebd.student.cache.EbdMemoryCache_Factory
-import cqebd.student.network.*
+import cqebd.student.network.EbdWorkService
+import cqebd.student.network.NetworkBoundResource
+import cqebd.student.network.Resource
 import cqebd.student.vo.BaseResponse
 import cqebd.student.vo.User
-import io.reactivex.Flowable
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,37 +20,25 @@ class EbdUserRepository @Inject constructor(
         private val memoryCache: EbdMemoryCache
 ) {
 
-    fun testCache(){
-        println("--->>> cache : $memoryCache")
-    }
-
-    fun getUser(account: String, password: String): LiveData<Resource<BaseResponse<User>>> {
-        return object : NetworkBoundResource<BaseResponse<User>, BaseResponse<User>>() {
+    fun getUser(account: String, password: String, shouldFetch: Boolean = false): LiveData<Resource<User>> {
+        return object : NetworkBoundResource<User, BaseResponse<User>>() {
             override fun saveCallResult(item: BaseResponse<User>) {
-                println("------ saveCallResult")
-                memoryCache.user.value = item
+                memoryCache.user.value = item.data
             }
 
-            override fun shouldFetch(data: BaseResponse<User>?): Boolean {
-                println("------ shouldFetch")
-                println("------ shouldFetch $data")
-                return true
+            override fun shouldFetch(data: User?): Boolean {
+                return (data == null) or shouldFetch// 当缓存为null或强制刷新时才请求网络
             }
 
-            override fun loadFromDb(): LiveData<BaseResponse<User>> {
-                println("------ loadFromDb")
+            override fun loadFromDb(): LiveData<User> {
                 return memoryCache.user
             }
 
             override fun createCall(): LiveData<BaseResponse<User>> {
-                println("------ createCall")
                 return workService.userLogin(account, password)
             }
 
         }.asLiveData()
     }
 
-    fun test(account: String, password: String): Flowable<BaseResponse<User>> {
-        return workService.test(account, password)
-    }
 }

@@ -9,7 +9,6 @@ import cqebd.student.network.Status
 import cqebd.student.viewmodel.EbdViewModel
 import xiaofu.lib.BaseApp
 import xiaofu.lib.base.fragment.BaseBindFragment
-import xiaofu.lib.base.fragment.BaseFragment
 
 /**
  *
@@ -21,19 +20,35 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
 
     override fun initialize(activity: FragmentActivity, binding: FragmentLoginUserBinding) {
         val model = ViewModelProviders.of(activity, BaseApp.instance.factory).get(EbdViewModel::class.java)
-        println("------>>>View Model Frag: $model")
         binding.userModel = model
         binding.account = "xsc001"
         binding.pwd = "123456"
         binding.setLifecycleOwner(this)
 
+        model.b.observe(this, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    println("------ Frag BBBBBBB LOADING")
+                }
+                Status.SUCCESS -> {
+                    println("------ Frag BBBBBBB SUCCESS data:${it.data}")
+                }
+                Status.ERROR -> {
+                    println("------ Frag BBBBBBB ERROR")
+                }
+            }
+        })
+
+        refresh(model)
+    }
+
+    private fun refresh(model:EbdViewModel){
         model.login("xsc001", "123456").observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     println("------ Frag LOADING")
                 }
                 Status.SUCCESS -> {
-                    println("------ Frag SUCCESS")
                     println("------ Frag SUCCESS data :${it.data}")
                 }
                 Status.ERROR -> {

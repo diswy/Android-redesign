@@ -1,16 +1,12 @@
 package cqebd.student.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
 import cqebd.student.network.Resource
 import cqebd.student.repository.EbdUserRepository
-import cqebd.student.vo.BaseResponse
 import cqebd.student.vo.User
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -19,17 +15,21 @@ import javax.inject.Inject
  */
 class EbdViewModel @Inject constructor(private val userRepository: EbdUserRepository) : ViewModel() {
 
-    val a = MutableLiveData<String>()
 
-    fun login(account: String, password: String): LiveData<Resource<BaseResponse<User>>> {
-        a.value = "zhang li fu "
+    val b = MediatorLiveData<Resource<User>>()
+    val user = MutableLiveData<User>()
 
-        userRepository.testCache()
-        return userRepository.getUser(account, password)
+    fun test(){
+        val call = userRepository.getUser("xsc001", "123456")
+        b.addSource(call){
+            b.value = it
+            user.value = it.data
+        }
     }
 
-    fun say() {
-        println("------>>>>>> userRepository  : $userRepository")
+
+    fun login(account: String, password: String): LiveData<Resource<User>> {
+        return userRepository.getUser(account, password)
     }
 
 }

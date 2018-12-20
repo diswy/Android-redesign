@@ -1,6 +1,7 @@
 package xiaofu.lib.di
 
 import com.readystatesoftware.chuck.ChuckInterceptor
+import cqebd.student.cache.ACache
 import cqebd.student.di.EbdViewModelModule
 import cqebd.student.network.EbdVideoService
 import cqebd.student.network.EbdWorkService
@@ -27,6 +28,12 @@ class AppModule {
     @Provides
     fun provideApplication(): BaseApp {
         return BaseApp.instance
+    }
+
+    @Singleton
+    @Provides
+    fun provideACache(app: BaseApp): ACache {
+        return ACache.get(app)
     }
 
     @Singleton
