@@ -3,10 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="userModel"
+            type="cqebd.student.viewmodel.EbdViewModel" />
+
+        <variable
+            name="account"
+            type="String" />
+
+        <variable
+            name="pwd"
+            type="String" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <xiaofu.lib.view.FancyGroup
             android:id="@+id/holder_login_account"
@@ -41,15 +57,22 @@
         </xiaofu.lib.view.FancyGroup>
 
         <xiaofu.lib.view.FancyButton
-            android:clickable="true"
             android:id="@+id/login_btn_submit"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="登陆"
+            android:onClick="@{()->userModel.login(account,pwd)}"
             app:fb_border_width="1dp"
             app:layout_constraintTop_toBottomOf="@id/holder_login_password" />
+
+
+        <TextView
+            android:text="@{userModel.a}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/login_btn_submit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,10 +19,6 @@ class LoginActivity : BaseActivity() {
 
     override fun initialize() {
 
-        val loginViewModel = ViewModelProviders.of(this, BaseApp.instance.factory).get(EbdViewModel::class.java)
-        println("------>>>>>> login activity model:$loginViewModel")
-        loginViewModel.say()
-
     }
 
     override fun onDestroy() {

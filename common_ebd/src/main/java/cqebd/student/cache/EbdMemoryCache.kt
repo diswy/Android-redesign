@@ -1,7 +1,11 @@
 package cqebd.student.cache
 
-import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import cqebd.student.vo.BaseResponse
 import cqebd.student.vo.User
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * 单例模式
@@ -9,25 +13,32 @@ import cqebd.student.vo.User
  * 请在Application中初始化
  * Created by @author xiaofu on 2018/12/18.
  */
-class EbdMemoryCache private constructor() {
+@Singleton
+class EbdMemoryCache @Inject constructor() {
 
-    private var user: User? = null
+    var user = MutableLiveData<BaseResponse<User>>()
 
-    private object Instance {
-        val instance = EbdMemoryCache()
-    }
+//    fun setUser(data :User){
+//        user.value =    data
+//    }
 
-    companion object {
-        val INSTANCE = Instance.instance
-    }
+//    private var user: User? = null
+//
+//    private object Instance {
+//        val instance = EbdMemoryCache()
+//    }
+//
+//    companion object {
+//        val INSTANCE = Instance.instance
+//    }
 
-    fun setUser(mUser: User) {
-        this.user = mUser
-    }
-
-    fun getUser(): User? {
-        return user
-    }
+//    fun setUser(mUser: User) {
+//        this.user = mUser
+//    }
+//
+//    fun getUser(): User? {
+//        return user
+//    }
 
 
 }

@@ -2,11 +2,13 @@ package com.cqebd.student
 
 import android.graphics.Color
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.cqebd.student.databinding.ActivityMainBinding
+import cqebd.student.network.Status
 import cqebd.student.viewmodel.EbdViewModel
 import org.jetbrains.anko.info
 import xiaofu.lib.BaseApp
@@ -35,9 +37,25 @@ class MainActivity : BaseBindActivity<ActivityMainBinding>(), BottomNavigationBa
         binding.mainTab.setTabSelectedListener(this@MainActivity)
         replaceFragments(0)
 
-        val loginViewModel = ViewModelProviders.of(this,BaseApp.instance.factory).get(EbdViewModel::class.java)
-        println("------>>>>>> main activity model:$loginViewModel")
-        loginViewModel.say()
+        val loginViewModel = ViewModelProviders.of(this, BaseApp.instance.factory).get(EbdViewModel::class.java)
+
+        loginViewModel.login("xsc001", "123456")
+                .observe(this, Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            println("------ LOADING")
+                            it.data
+                        }
+                        Status.SUCCESS -> {
+                            println("------ SUCCESS")
+                            println("------ SUCCESS data :${it.data}")
+                        }
+                        Status.ERROR -> {
+                            println("------ ERROR")
+                        }
+                    }
+                })
+
     }
 
     override fun bindListener(binding: ActivityMainBinding) {
