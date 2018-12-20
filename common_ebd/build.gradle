@@ -25,9 +25,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation deps.kotlin.stdlib
-    compileOnly 'com.google.code.gson:gson:2.8.5'
     compileOnly deps.room.runtime
     compileOnly deps.dagger2.core
+    compileOnly deps.lifecycle.runtime
+    compileOnly deps.lifecycle.extensions
+    compileOnly deps.retrofit.runtime
+    compileOnly deps.retrofit.gson
 
     kapt deps.kapt.room
     kapt deps.kapt.dagger2

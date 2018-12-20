@@ -1,15 +1,16 @@
 package xiaofu.lib.di
 
 import com.readystatesoftware.chuck.ChuckInterceptor
+import cqebd.student.di.EbdViewModelModule
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import xiaofu.lib.BaseApp
 import xiaofu.lib.base.http.LiveDataCallAdapterFactory
 import xiaofu.lib.base.http.StringConverterFactory
-import xiaofu.lib.di.bind.ViewModelModule
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -17,7 +18,7 @@ import javax.inject.Singleton
  *
  * Created by @author xiaofu on 2018/12/19.
  */
-@Module(includes = [ViewModelModule::class])
+@Module(includes = [EbdViewModelModule::class])
 class AppModule {
 
     @Provides
@@ -44,7 +45,7 @@ class AppModule {
                 .baseUrl("http://apicloud.mob.com/")
                 .addConverterFactory(StringConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
                 .build()
     }

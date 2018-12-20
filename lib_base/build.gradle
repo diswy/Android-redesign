@@ -51,6 +51,7 @@ dependencies {
     api deps.kotlin.coroutines
     api deps.retrofit.runtime
     api deps.retrofit.gson
+    api deps.retrofit.rx2
     api (deps.glide.core){
         exclude group: "com.android.support"
     }
@@ -68,4 +69,8 @@ dependencies {
     kapt deps.kapt.glide
     kapt deps.kapt.dagger2
     kapt deps.kapt.room
+
+    // 连接项目的实体仓库
+    api project(':common_ebd')
+
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xiaofu.lib.di.bind
+package cqebd.student.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +24,7 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
-class MyViewModelFactory @Inject constructor(
+class EbdViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

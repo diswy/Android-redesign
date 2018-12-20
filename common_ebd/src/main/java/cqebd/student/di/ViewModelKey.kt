@@ -14,25 +14,18 @@
  * limitations under the License.
  */
 
-package xiaofu.lib.di.bind
+package cqebd.student.di
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import dagger.Binds
-import dagger.Module
-import dagger.multibindings.IntoMap
-import xiaofu.lib.di.ano.ViewModelKey
-import xiaofu.lib.di.test.UserViewModel
+import dagger.MapKey
+import kotlin.reflect.KClass
 
-@Suppress("unused")
-@Module
-abstract class ViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(UserViewModel::class)
-    abstract fun bindUserViewModel(userViewModel: UserViewModel): ViewModel
-
-
-    @Binds
-    abstract fun bindViewModelFactory(factory: MyViewModelFactory): ViewModelProvider.Factory
-}
+@MustBeDocumented
+@Target(
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.PROPERTY_GETTER,
+    AnnotationTarget.PROPERTY_SETTER
+)
+@Retention(AnnotationRetention.RUNTIME)
+@MapKey
+annotation class ViewModelKey(val value: KClass<out ViewModel>)

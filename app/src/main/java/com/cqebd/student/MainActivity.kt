@@ -2,10 +2,14 @@ package com.cqebd.student
 
 import android.graphics.Color
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.cqebd.student.databinding.ActivityMainBinding
+import cqebd.student.viewmodel.EbdViewModel
+import org.jetbrains.anko.info
+import xiaofu.lib.BaseApp
 import xiaofu.lib.base.activity.BaseBindActivity
 import xiaofu.lib.inline.onClick
 
@@ -30,6 +34,10 @@ class MainActivity : BaseBindActivity<ActivityMainBinding>(), BottomNavigationBa
 
         binding.mainTab.setTabSelectedListener(this@MainActivity)
         replaceFragments(0)
+
+        val loginViewModel = ViewModelProviders.of(this,BaseApp.instance.factory).get(EbdViewModel::class.java)
+        println("------>>>>>> main activity model:$loginViewModel")
+        loginViewModel.say()
     }
 
     override fun bindListener(binding: ActivityMainBinding) {
