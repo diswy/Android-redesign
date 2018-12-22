@@ -6,6 +6,8 @@ import cqebd.student.viewmodel.EbdViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import xiaofu.lib.network.di.ViewModelFactory
+import xiaofu.lib.network.di.ViewModelKey
 
 /**
  *
@@ -21,5 +23,5 @@ abstract class EbdViewModelModule {
     abstract fun bindUserViewModel(userViewModel: EbdViewModel): ViewModel
 
     @Binds
-    abstract fun bindViewModelFactory(factory: EbdViewModelFactory): ViewModelProvider.Factory
+    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

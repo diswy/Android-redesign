@@ -5,10 +5,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cqebd.student.module.user.R
 import cqebd.student.module.user.databinding.FragmentLoginUserBinding
-import cqebd.student.network.Status
 import cqebd.student.viewmodel.EbdViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.toast
 import xiaofu.lib.BaseApp
 import xiaofu.lib.base.fragment.BaseBindFragment
+import xiaofu.lib.network.Status
+import java.net.UnknownHostException
 
 /**
  *
@@ -34,7 +38,7 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
                     println("------ Frag BBBBBBB SUCCESS data:${it.data}")
                 }
                 Status.ERROR -> {
-                    println("------ Frag BBBBBBB ERROR")
+                    println("------ Frag BBBBBBB ERROR  error:${it.message}")
                 }
             }
         })
@@ -53,6 +57,7 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
                 }
                 Status.ERROR -> {
                     println("------ Frag ERROR")
+                    println("------ Frag ERROR  error:${it.message}")
                 }
             }
         })

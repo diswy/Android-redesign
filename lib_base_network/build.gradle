@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -24,10 +23,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':lib_base_network')
-
     implementation deps.kotlin.stdlib
-    compileOnly deps.room.runtime
+
     compileOnly deps.dagger2.core
     compileOnly deps.lifecycle.runtime
     compileOnly deps.lifecycle.extensions
@@ -36,6 +33,5 @@ dependencies {
     compileOnly deps.rxjava2.core
     compileOnly deps.rxjava2.android
 
-    kapt deps.kapt.room
     kapt deps.kapt.dagger2
 }

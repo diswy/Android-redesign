@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import cqebd.student.vo.BaseResponse
 import cqebd.student.vo.User
 import io.reactivex.Flowable
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import xiaofu.lib.network.ApiResponse
 
 /**
  *
@@ -21,7 +21,7 @@ interface EbdWorkService {
     fun userLogin(
             @Query("loginName") loginName: String,
             @Query("pwd") pwd: String)
-            : LiveData<BaseResponse<User>>
+            : LiveData<ApiResponse<BaseResponse<User>>>
 
 
     @GET("api/Account/Login")

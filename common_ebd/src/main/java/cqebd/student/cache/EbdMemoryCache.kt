@@ -2,6 +2,7 @@ package cqebd.student.cache
 
 import androidx.lifecycle.MutableLiveData
 import cqebd.student.vo.User
+import xiaofu.lib.cache.ACache
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import cqebd.student.network.Resource
 import cqebd.student.repository.EbdUserRepository
 import cqebd.student.vo.User
+import xiaofu.lib.network.Resource
 import javax.inject.Inject
 
 /**
@@ -19,9 +19,9 @@ class EbdViewModel @Inject constructor(private val userRepository: EbdUserReposi
     val b = MediatorLiveData<Resource<User>>()
     val user = MutableLiveData<User>()
 
-    fun test(){
+    fun test() {
         val call = userRepository.getUser("xsc001", "123456")
-        b.addSource(call){
+        b.addSource(call) {
             b.value = it
             user.value = it.data
         }
@@ -31,5 +31,7 @@ class EbdViewModel @Inject constructor(private val userRepository: EbdUserReposi
     fun login(account: String, password: String): LiveData<Resource<User>> {
         return userRepository.getUser(account, password)
     }
+
+    fun testRx(account: String, password: String) = userRepository.testRx(account, password)
 
 }

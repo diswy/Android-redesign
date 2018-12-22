@@ -1,4 +1,4 @@
-package cqebd.student.network
+package xiaofu.lib.network
 
 enum class Status {
     SUCCESS,

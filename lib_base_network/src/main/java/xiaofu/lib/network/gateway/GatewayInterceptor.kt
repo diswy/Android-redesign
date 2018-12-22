@@ -1,4 +1,4 @@
-package xiaofu.lib.base.http.gateway
+package xiaofu.lib.network.gateway
 
 import android.util.Base64
 import okhttp3.*
@@ -30,21 +30,21 @@ class GatewayInterceptor(private val appKey: String, private val appSecret: Stri
 
         val current = Date()
 
-        headers[ApiConstant.CLOUDAPI_HTTP_HEADER_ACCEPT] = "application/json"
+        headers[ApiConstant.CLOUD_API_HTTP_HEADER_ACCEPT] = "application/json"
         //设置请求头中的UserAgent
-        headers[ApiConstant.CLOUDAPI_HTTP_HEADER_USER_AGENT] = ApiConstant.CLOUDAPI_USER_AGENT
+        headers[ApiConstant.CLOUD_API_HTTP_HEADER_USER_AGENT] = ApiConstant.CLOUD_API_USER_AGENT
         //设置请求头中的时间戳，以timeIntervalSince1970的形式
-        headers[ApiConstant.CLOUDAPI_X_CA_TIMESTAMP] = current.time.toString()
+        headers[ApiConstant.CLOUD_API_X_CA_TIMESTAMP] = current.time.toString()
         //请求放重放Nonce,15分钟内保持唯一,建议使用UUID
-        headers[ApiConstant.CLOUDAPI_X_CA_NONCE] = UUID.randomUUID().toString()
+        headers[ApiConstant.CLOUD_API_X_CA_NONCE] = UUID.randomUUID().toString()
         //设置请求头中的主机地址
-        headers[ApiConstant.CLOUDAPI_HTTP_HEADER_HOST] = request.url().host()
+        headers[ApiConstant.CLOUD_API_HTTP_HEADER_HOST] = request.url().host()
         //设置请求头中的Api绑定的的AppKey
-        headers[ApiConstant.CLOUDAPI_X_CA_KEY] = appKey
+        headers[ApiConstant.CLOUD_API_X_CA_KEY] = appKey
         //设置签名版本号
-        headers[ApiConstant.CLOUDAPI_X_CA_VERSION] = ApiConstant.CLOUDAPI_CA_VERSION_VALUE
+        headers[ApiConstant.CLOUD_API_X_CA_VERSION] = ApiConstant.CLOUD_API_CA_VERSION_VALUE
         //设置请求数据类型
-        headers[ApiConstant.CLOUDAPI_HTTP_HEADER_CONTENT_TYPE] = ApiConstant.CLOUDAPI_CONTENT_TYPE_FORM
+        headers[ApiConstant.CLOUD_API_HTTP_HEADER_CONTENT_TYPE] = ApiConstant.CLOUD_API_CONTENT_TYPE_FORM
 
         /*
          *  如果类型为byte数组的body不为空
@@ -56,7 +56,7 @@ class GatewayInterceptor(private val appKey: String, private val appSecret: Stri
             if (requestBody != null && requestBody.contentLength() > 0) {
                 val buffer = Buffer()
                 requestBody.writeTo(buffer)
-                headers[ApiConstant.CLOUDAPI_HTTP_HEADER_CONTENT_MD5] = this.base64AndMD5(buffer.readByteArray())
+                headers[ApiConstant.CLOUD_API_HTTP_HEADER_CONTENT_MD5] = this.base64AndMD5(buffer.readByteArray())
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -69,7 +69,7 @@ class GatewayInterceptor(private val appKey: String, private val appSecret: Stri
                 formParam[body.name(i)] = body.value(i)
             }
         }
-        headers[ApiConstant.CLOUDAPI_X_CA_SIGNATURE] = SignUtil.sign(request.method(), headers, appSecret, request.url(), formParam)
+        headers[ApiConstant.CLOUD_API_X_CA_SIGNATURE] = SignUtil.sign(request.method(), headers, appSecret, request.url(), formParam)
 
         /*
          *  凑齐所有HTTP头之后，将头中的数据全部放入Request对象中
@@ -78,8 +78,8 @@ class GatewayInterceptor(private val appKey: String, private val appSecret: Stri
         for (key in headers.keys) {
             val value = headers[key]
             if (null != value && value.isNotEmpty()) {
-                val temp = value.toByteArray(ApiConstant.CLOUDAPI_ENCODING)
-                headers[key] = String(temp, ApiConstant.CLOUDAPI_HEADER_ENCODING)
+                val temp = value.toByteArray(ApiConstant.CLOUD_API_ENCODING)
+                headers[key] = String(temp, ApiConstant.CLOUD_API_HEADER_ENCODING)
             }
         }
         return request.newBuilder().headers(Headers.of(headers)).build()
@@ -99,7 +99,7 @@ class GatewayInterceptor(private val appKey: String, private val appSecret: Stri
             val encodeBytes = Base64.encode(md.digest(), Base64.DEFAULT)
             val encodeBytes2 = ByteArray(24)
             System.arraycopy(encodeBytes, 0, encodeBytes2, 0, 24)
-            return String(encodeBytes2, ApiConstant.CLOUDAPI_ENCODING)
+            return String(encodeBytes2, ApiConstant.CLOUD_API_ENCODING)
         } catch (e: NoSuchAlgorithmException) {
             throw IllegalArgumentException("unknown algorithm MD5")
         }

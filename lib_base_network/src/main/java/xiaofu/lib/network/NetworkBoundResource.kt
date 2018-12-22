@@ -1,4 +1,4 @@
-package cqebd.student.network
+package xiaofu.lib.network
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
@@ -8,6 +8,10 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+/**
+ * 暴露网络状态
+ * Created by @author xiaofu on 2018/12/22.
+ */
 abstract class NetworkBoundResource<ResultType, RequestType>
 @MainThread constructor() {
     private val result = MediatorLiveData<Resource<ResultType>>()
@@ -43,22 +47,38 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             setValue(Resource.loading(newData))
         }
         result.addSource(apiResponse) { response ->
-            // 理论上这里应该对ApiResponse进行封装判断
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
-            response?.let { requestType ->
-                Observable.just(requestType)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            saveCallResult(requestType)
-                            result.addSource(loadFromDb()) { newData ->
-                                setValue(Resource.success(newData))
+            when (response) {
+                is ApiSuccessResponse -> {
+                    Observable.just(response)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe {
+                                saveCallResult(response.body)
+                                result.addSource(loadFromDb()) { newData ->
+                                    setValue(Resource.success(newData))
+                                }
                             }
-                        }, {
-                            setValue(Resource.error(it.message ?: "unknown error", null))
-                        })
+                }
+                is ApiEmptyResponse -> {
+                    Observable.just(response)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe {
+                                result.addSource(loadFromDb()) { newData ->
+                                    setValue(Resource.success(newData))
+                                }
+                            }
+                }
+                is ApiErrorResponse -> {
+                    onFetchFailed()
+                    result.addSource(dbSource) { newData ->
+                        setValue(Resource.error(response.errorMessage, newData))
+                    }
+                }
             }
+
         }
     }
 
@@ -76,6 +96,5 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     protected abstract fun loadFromDb(): LiveData<ResultType>
 
     @MainThread
-    protected abstract fun createCall(): LiveData<RequestType>
-
+    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
 }

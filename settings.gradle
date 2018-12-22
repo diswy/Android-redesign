@@ -1,5 +1,6 @@
 include ':app'
 include ':lib_base'
+include ':lib_base_network'
 include ':common_ebd'
 include ':component_player'
 include ':module_student_user'

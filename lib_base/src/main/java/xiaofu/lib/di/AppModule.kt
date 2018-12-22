@@ -1,7 +1,6 @@
 package xiaofu.lib.di
 
 import com.readystatesoftware.chuck.ChuckInterceptor
-import cqebd.student.cache.ACache
 import cqebd.student.di.EbdViewModelModule
 import cqebd.student.network.EbdVideoService
 import cqebd.student.network.EbdWorkService
@@ -12,9 +11,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import xiaofu.lib.BaseApp
-import xiaofu.lib.base.http.LiveDataCallAdapterFactory
-import xiaofu.lib.base.http.StringConverterFactory
-import xiaofu.lib.base.http.gateway.GatewayInterceptor
+import xiaofu.lib.cache.ACache
+import xiaofu.lib.network.converter.LiveDataCallAdapterFactory
+import xiaofu.lib.network.converter.StringConverterFactory
+import xiaofu.lib.network.gateway.GatewayInterceptor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 

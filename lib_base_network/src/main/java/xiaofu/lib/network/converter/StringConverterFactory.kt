@@ -1,4 +1,4 @@
-package xiaofu.lib.base.http
+package xiaofu.lib.network.converter
 
 import okhttp3.ResponseBody
 import retrofit2.Converter

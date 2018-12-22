@@ -72,6 +72,8 @@ dependencies {
     kapt deps.kapt.dagger2
     kapt deps.kapt.room
 
+    api project(':lib_base_network')
+
     // 连接项目的实体仓库
     api project(':common_ebd')
 

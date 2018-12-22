@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cqebd.student.cache;
+package xiaofu.lib.cache;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xiaofu.lib.di.ano
+package xiaofu.lib.network.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

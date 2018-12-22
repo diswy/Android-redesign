@@ -3,10 +3,12 @@ package cqebd.student.repository
 import androidx.lifecycle.LiveData
 import cqebd.student.cache.EbdMemoryCache
 import cqebd.student.network.EbdWorkService
-import cqebd.student.network.NetworkBoundResource
-import cqebd.student.network.Resource
 import cqebd.student.vo.BaseResponse
 import cqebd.student.vo.User
+import io.reactivex.Flowable
+import xiaofu.lib.network.ApiResponse
+import xiaofu.lib.network.NetworkBoundResource
+import xiaofu.lib.network.Resource
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,6 +21,10 @@ class EbdUserRepository @Inject constructor(
         private val workService: EbdWorkService,
         private val memoryCache: EbdMemoryCache
 ) {
+
+    fun testRx(account: String, password: String): Flowable<BaseResponse<User>> {
+        return workService.test(account, password)
+    }
 
     fun getUser(account: String, password: String, shouldFetch: Boolean = false): LiveData<Resource<User>> {
         return object : NetworkBoundResource<User, BaseResponse<User>>() {
@@ -34,7 +40,7 @@ class EbdUserRepository @Inject constructor(
                 return memoryCache.user
             }
 
-            override fun createCall(): LiveData<BaseResponse<User>> {
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<User>>> {
                 return workService.userLogin(account, password)
             }
 
