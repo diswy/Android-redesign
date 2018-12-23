@@ -10,8 +10,8 @@ import retrofit2.Response
 @Suppress("unused") // T is used in extending classes
 sealed class ApiResponse<T> {
     companion object {
-        fun <T> create(error: Throwable): ApiErrorResponse<T> {
-            return ApiErrorResponse(error.message ?: "unknown error")
+        fun <T> create(throwable: Throwable): ApiErrorResponse<T> {
+            return ApiErrorResponse(throwable)
         }
 
         fun <T> create(response: Response<T>): ApiResponse<T> {
@@ -29,7 +29,8 @@ sealed class ApiResponse<T> {
                 } else {
                     msg
                 }
-                ApiErrorResponse(errorMsg ?: "unknown error")
+                val myNetworkThrowable = Throwable(errorMsg)
+                ApiErrorResponse(myNetworkThrowable)
             }
         }
     }
@@ -40,6 +41,6 @@ sealed class ApiResponse<T> {
  */
 class ApiEmptyResponse<T> : ApiResponse<T>()
 
-data class ApiErrorResponse<T>(val errorMessage: String) : ApiResponse<T>()
+data class ApiErrorResponse<T>(val throwable: Throwable?) : ApiResponse<T>()
 
 data class ApiSuccessResponse<T>(val body: T) : ApiResponse<T>()

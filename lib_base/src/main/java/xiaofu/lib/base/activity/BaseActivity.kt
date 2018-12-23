@@ -7,9 +7,9 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import xiaofu.lib.base.timer.ITimer
 import kotlinx.coroutines.*
 import org.jetbrains.anko.AnkoLogger
+import xiaofu.lib.base.timer.ITimer
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -120,6 +120,10 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger, CoroutineScope {
             }
             timer.onTimeEnd()
         }
+    }
+
+    protected open fun handleExceptions(throwable: Throwable){
+
     }
 
 }

@@ -1,6 +1,11 @@
 package xiaofu.lib
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.squareup.leakcanary.LeakCanary
@@ -44,6 +49,7 @@ class BaseApp : Application() {
         ARouter.init(this)
 
         modulesAppInit()
+        registerNetworkChanged()
     }
 
     /**
@@ -69,4 +75,28 @@ class BaseApp : Application() {
         }
     }
 
+    private fun registerNetworkChanged() {
+        val conn = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val builder = NetworkRequest.Builder()
+        builder.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        builder.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+//        builder.addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+//        builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+        conn.registerNetworkCallback(builder.build(), object : ConnectivityManager.NetworkCallback() {
+            override fun onUnavailable() {
+                super.onUnavailable()
+                println("--->>> onUnavailable")
+
+            }
+            override fun onAvailable(network: Network?) {
+                super.onAvailable(network)
+                println("--->>> onAvailable")
+            }
+
+            override fun onLost(network: Network?) {
+                super.onLost(network)
+                println("--->>> onLost")
+            }
+        })
+    }
 }
