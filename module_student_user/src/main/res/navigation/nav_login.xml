@@ -7,6 +7,23 @@
     <fragment
         android:id="@+id/loginUserFragment"
         android:name="cqebd.student.module.user.ui.LoginUserFragment"
-        android:label="LoginUserFragment" />
+        android:label="LoginUserFragment">
+        <action
+            android:id="@+id/action_loginUserFragment_to_findUserFragment"
+            app:destination="@id/findUserFragment" />
+        <action
+            android:id="@+id/action_loginUserFragment_to_resetPwdFragment"
+            app:destination="@id/resetPwdFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/findUserFragment"
+        android:name="cqebd.student.module.user.ui.FindUserFragment"
+        android:label="FindUserFragment" />
+
+    <fragment
+        android:id="@+id/resetPwdFragment"
+        android:name="cqebd.student.module.user.ui.ResetPwdFragment"
+        android:label="ResetPwdFragment" />
 
 </navigation>

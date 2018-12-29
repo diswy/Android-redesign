@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseActivity : AppCompatActivity(), AnkoLogger, CoroutineScope {
 
     protected lateinit var TAG: String
+    protected lateinit var root: ViewGroup// 根视图容器
     /**
      * 带Tag标签的日志
      * note:真机调试中，info以下级别的日志容易被过滤不显示
@@ -40,6 +42,7 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger, CoroutineScope {
         super.onCreate(savedInstanceState)
         job = Job()
         TAG = componentName.className
+        root = window.decorView.findViewById(android.R.id.content)
         /**
          * 不同于style中的半透明状态栏，此设置为全屏沉浸式
          * 后一种为透明状态栏样式
@@ -62,6 +65,7 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger, CoroutineScope {
         setView()
         initialize()
         bindListener()
+        requestNetwork()
     }
 
     override fun onDestroy() {
@@ -83,9 +87,9 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger, CoroutineScope {
 
     abstract fun initialize()
 
-    protected open fun bindListener() {
+    protected open fun bindListener() {}
 
-    }
+    protected open fun requestNetwork() {}
 
     /**
      * 强制显示软键盘
@@ -122,7 +126,7 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger, CoroutineScope {
         }
     }
 
-    protected open fun handleExceptions(throwable: Throwable){
+    protected open fun handleExceptions(throwable: Throwable) {
 
     }
 

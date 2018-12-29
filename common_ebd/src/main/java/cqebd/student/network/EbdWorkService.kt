@@ -28,5 +28,5 @@ interface EbdWorkService {
     fun test(
             @Query("loginName") loginName: String,
             @Query("pwd") pwd: String)
-            : Flowable<BaseResponse<User>>
+            : LiveData<ApiResponse<BaseResponse<User>>>
 }

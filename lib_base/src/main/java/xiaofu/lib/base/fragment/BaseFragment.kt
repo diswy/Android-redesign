@@ -46,6 +46,7 @@ abstract class BaseFragment : Fragment(), AnkoLogger, CoroutineScope {
         activity?.let {
             initialize(it)
             bindListener()
+            requestNetwork()
         } ?: throw RuntimeException("Invalid Activity")
     }
 
@@ -56,9 +57,9 @@ abstract class BaseFragment : Fragment(), AnkoLogger, CoroutineScope {
 
     abstract fun initialize(activity: FragmentActivity)
 
-    protected open fun bindListener() {
+    protected open fun bindListener() {}
 
-    }
+    protected open fun requestNetwork() {}
 
     /**
      * 计时任务,如果只关心过程或结果可使用子类接口

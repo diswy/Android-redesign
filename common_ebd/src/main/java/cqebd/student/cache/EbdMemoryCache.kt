@@ -1,6 +1,8 @@
 package cqebd.student.cache
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import cqebd.student.vo.User
 import xiaofu.lib.cache.ACache
 import javax.inject.Inject
@@ -12,11 +14,23 @@ import javax.inject.Singleton
  * Created by @author xiaofu on 2018/12/18.
  */
 @Singleton
-class EbdMemoryCache @Inject constructor(val cache: ACache) {
-    var user = MutableLiveData<User>()
+class EbdMemoryCache @Inject constructor(private val cache: ACache, private val gson: Gson) {
+    var user = MutableLiveData<User>()// 用户登陆
 
     init {
-        user.value = null
+        try {
+            user.value = gson.fromJson<User>(cache.getAsString(USER), User::class.java)
+        } catch (e: Exception) {
+            user.value = null
+        }
+    }
+
+    fun saveUser(user: User) {
+        cache.put(USER, gson.toJson(user))
+    }
+
+    fun getUser(): LiveData<User> {
+        return user
     }
 
 }

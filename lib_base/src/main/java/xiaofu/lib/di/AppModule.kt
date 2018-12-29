@@ -1,5 +1,6 @@
 package xiaofu.lib.di
 
+import com.google.gson.Gson
 import com.readystatesoftware.chuck.ChuckInterceptor
 import cqebd.student.di.EbdViewModelModule
 import cqebd.student.network.EbdVideoService
@@ -34,6 +35,12 @@ class AppModule {
     @Provides
     fun provideACache(app: BaseApp): ACache {
         return ACache.get(app)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        return Gson()
     }
 
     @Singleton

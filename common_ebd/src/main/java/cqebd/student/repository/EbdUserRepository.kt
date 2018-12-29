@@ -5,7 +5,6 @@ import cqebd.student.cache.EbdMemoryCache
 import cqebd.student.network.EbdWorkService
 import cqebd.student.vo.BaseResponse
 import cqebd.student.vo.User
-import io.reactivex.Flowable
 import xiaofu.lib.network.ApiResponse
 import xiaofu.lib.network.NetworkBoundResource
 import xiaofu.lib.network.Resource
@@ -22,7 +21,7 @@ class EbdUserRepository @Inject constructor(
         private val memoryCache: EbdMemoryCache
 ) {
 
-    fun testRx(account: String, password: String): Flowable<BaseResponse<User>> {
+    fun testRx(account: String, password: String): LiveData<ApiResponse<BaseResponse<User>>> {
         return workService.test(account, password)
     }
 
@@ -37,7 +36,7 @@ class EbdUserRepository @Inject constructor(
             }
 
             override fun loadFromDb(): LiveData<User> {
-                return memoryCache.user
+                return memoryCache.getUser()
             }
 
             override fun createCall(): LiveData<ApiResponse<BaseResponse<User>>> {

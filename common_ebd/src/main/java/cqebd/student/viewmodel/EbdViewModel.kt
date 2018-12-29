@@ -27,7 +27,6 @@ class EbdViewModel @Inject constructor(private val userRepository: EbdUserReposi
         }
     }
 
-
     fun login(account: String, password: String): LiveData<Resource<User>> {
         return userRepository.getUser(account, password)
     }
