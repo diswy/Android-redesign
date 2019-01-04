@@ -43,6 +43,21 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
         binding.btnResetPwd.onClick {
             Navigation.findNavController(it).navigate(R.id.action_loginUserFragment_to_resetPwdFragment)
         }
+
+        model.login("xsebd01", "123456").observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    println("--->>> SUCCESS")
+                    println("--->>> SUCCESS : ${it.data}")
+                }
+                Status.ERROR -> {
+                    println("--->>> ERROR,${it.data},error:${it.throwable}")
+                }
+                Status.LOADING -> {
+                    println("--->>> LOADING")
+                }
+            }
+        })
     }
 
     private fun login(view: View, account: String, pwd: String) {
@@ -67,21 +82,5 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
                 }
             }
         })
-
-//        model.testRx(account.trim(), pwd.trim())
-//                .observe(this, Observer {
-//                    println("------>>>$it")
-////                    when (it.status) {
-////                        Status.SUCCESS -> {
-////                            println("--->>> SUCCESS")
-////                        }
-////                        Status.ERROR -> {
-////                            println("--->>> ERROR,${it.data},error:${it.throwable}")
-////                        }
-////                        Status.LOADING -> {
-////                            println("--->>> LOADING")
-////                        }
-////                    }
-//                })
     }
 }

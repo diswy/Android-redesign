@@ -20,6 +20,7 @@ import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter
 import retrofit2.CallAdapter.Factory
 import retrofit2.Retrofit
+import xiaofu.lib.network.ApiResponse
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -32,13 +33,17 @@ class LiveDataCallAdapterFactory : Factory() {
         if (Factory.getRawType(returnType) != LiveData::class.java) {
             return null
         }
-
-        if (returnType !is ParameterizedType) {
+        val observableType = Factory.getParameterUpperBound(0, returnType as ParameterizedType)
+        val rawObservableType = Factory.getRawType(observableType)
+        if (rawObservableType != ApiResponse::class.java) {
+            throw IllegalArgumentException("type must be a resource")
+        }
+        if (observableType !is ParameterizedType) {
             throw IllegalArgumentException("resource must be parameterized")
         }
+        val bodyType = Factory.getParameterUpperBound(0, observableType)
 
-        val type = Factory.getParameterUpperBound(0, returnType)
-        return LiveDataCallAdapter<Any>(type)
+        return LiveDataCallAdapter<Any>(bodyType)
     }
 
     companion object {

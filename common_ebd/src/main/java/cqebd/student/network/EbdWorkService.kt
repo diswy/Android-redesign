@@ -22,11 +22,4 @@ interface EbdWorkService {
             @Query("loginName") loginName: String,
             @Query("pwd") pwd: String)
             : LiveData<ApiResponse<BaseResponse<User>>>
-
-
-    @GET("api/Account/Login")
-    fun test(
-            @Query("loginName") loginName: String,
-            @Query("pwd") pwd: String)
-            : LiveData<ApiResponse<BaseResponse<User>>>
 }

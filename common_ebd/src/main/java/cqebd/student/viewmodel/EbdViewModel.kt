@@ -22,15 +22,14 @@ class EbdViewModel @Inject constructor(private val userRepository: EbdUserReposi
     fun test() {
         val call = userRepository.getUser("xsc001", "123456")
         b.addSource(call) {
-            b.value = it
-            user.value = it.data
+            //            b.value = it
+//            user.value = it.data
         }
     }
 
     fun login(account: String, password: String): LiveData<Resource<User>> {
-        return userRepository.getUser(account, password)
+        return userRepository.getUser(account, password, true)
     }
 
-    fun testRx(account: String, password: String) = userRepository.testRx(account, password)
 
 }

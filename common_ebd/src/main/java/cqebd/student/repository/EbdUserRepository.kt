@@ -21,9 +21,6 @@ class EbdUserRepository @Inject constructor(
         private val memoryCache: EbdMemoryCache
 ) {
 
-    fun testRx(account: String, password: String): LiveData<ApiResponse<BaseResponse<User>>> {
-        return workService.test(account, password)
-    }
 
     fun getUser(account: String, password: String, shouldFetch: Boolean = false): LiveData<Resource<User>> {
         return object : NetworkBoundResource<User, BaseResponse<User>>() {
