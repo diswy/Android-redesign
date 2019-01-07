@@ -90,6 +90,12 @@
 # PlayerBase混淆
 -keep public class * implements com.kk.taurus.playerbase.player.IPlayer{*;}
 
+# BRVAH混淆
+-keep class com.chad.library.adapter.** {*;}
+-keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
+-keep public class * extends com.chad.library.adapter.base.BaseViewHolder
+-keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {<init>(...);}
+
 # 自定义实体不参与混淆
 -keep class cqebd.student.vo.**{*;}
 # 继承View的自定义控件不参与混淆

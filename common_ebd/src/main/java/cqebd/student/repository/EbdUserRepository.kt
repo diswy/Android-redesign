@@ -1,5 +1,7 @@
 package cqebd.student.repository
 
+import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import cqebd.student.cache.EbdMemoryCache
 import cqebd.student.network.EbdWorkService
@@ -18,14 +20,19 @@ import javax.inject.Singleton
 @Singleton
 class EbdUserRepository @Inject constructor(
         private val workService: EbdWorkService,
-        private val memoryCache: EbdMemoryCache
+        private val memoryCache: EbdMemoryCache,
+        private val app: Application
 ) {
 
 
     fun getUser(account: String, password: String, shouldFetch: Boolean = false): LiveData<Resource<User>> {
         return object : NetworkBoundResource<User, BaseResponse<User>>() {
             override fun saveCallResult(item: BaseResponse<User>) {
-                memoryCache.user.value = item.data
+                if (item.isSuccess && item.data != null) {
+                    memoryCache.saveUser(item.data)
+                } else {
+                    Toast.makeText(app, item.message, Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun shouldFetch(data: User?): Boolean {

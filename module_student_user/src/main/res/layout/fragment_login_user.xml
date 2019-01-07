@@ -6,10 +6,6 @@
 
     <data>
 
-        <variable
-            name="userModel"
-            type="cqebd.student.viewmodel.EbdViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,6 +57,7 @@
             android:gravity="center"
             android:text="登陆"
             app:fb_border_width="1dp"
+            app:fb_ripple="false"
             app:layout_constraintTop_toBottomOf="@id/holder_login_password" />
 
         <xiaofu.lib.view.FancyText
@@ -69,6 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="找回账号"
+            app:ft_color_normal="#333333"
+            app:ft_color_pressed="#33e5e5"
             app:layout_constraintTop_toBottomOf="@+id/login_btn_submit" />
 
         <xiaofu.lib.view.FancyText
@@ -80,13 +79,6 @@
             android:text="重置密码"
             app:layout_constraintEnd_toEndOf="@+id/holder_login_password"
             app:layout_constraintTop_toBottomOf="@+id/login_btn_submit" />
-
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{userModel.user.Avatar}"
-            app:layout_constraintTop_toBottomOf="@id/btn_reset_pwd" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

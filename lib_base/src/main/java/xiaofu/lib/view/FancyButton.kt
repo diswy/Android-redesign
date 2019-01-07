@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.view.Gravity
 import androidx.appcompat.widget.AppCompatButton
 import xiaofu.lib.base.R
 import xiaofu.lib.view.drawable.Constants
@@ -52,7 +51,7 @@ class FancyButton @JvmOverloads constructor(context: Context?, attrs: AttributeS
             mDrawable = builder.strokeWidth(mBorderWidth.toInt())
                     .strokeColor(mBorderColor)
                     .solidColor(mSolidNormal)
-                    .solidColorPressed(if (mSolidPressed == Constants.DEFAULT_COLOR) mSolidNormal else mSolidPressed)
+                    .solidColorPressed(if (mSolidPressed == Constants.DEFAULT_PRESSED) mSolidNormal else mSolidPressed)
                     .ripple(mRipple)
                     .build()
         }

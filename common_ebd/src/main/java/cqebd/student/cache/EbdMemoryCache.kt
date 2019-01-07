@@ -25,8 +25,9 @@ class EbdMemoryCache @Inject constructor(private val cache: ACache, private val 
         }
     }
 
-    fun saveUser(user: User) {
-        cache.put(USER, gson.toJson(user))
+    fun saveUser(mUser: User) {
+        user.value = mUser
+        cache.put(USER, gson.toJson(mUser))
     }
 
     fun getUser(): LiveData<User> {

@@ -6,9 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.google.gson.JsonParseException
 import xiaofu.lib.base.timer.ITimer
 import kotlinx.coroutines.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.toast
+import org.json.JSONException
+import java.net.SocketException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import java.text.ParseException
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -74,6 +81,23 @@ abstract class BaseFragment : Fragment(), AnkoLogger, CoroutineScope {
             }
             timer.onTimeEnd()
         }
+    }
+
+    protected open fun handleExceptions(t: Throwable?) {
+        if (t == null){
+            activity?.toast("未知错误")
+            return
+        }
+        val errorMessage = when (t) {
+            is SocketException -> "网络异常，请检查网络重试"
+            is SocketTimeoutException -> "请求超时,请重新尝试"
+            is UnknownHostException -> "您似乎断开了与外网的连接，请检查外网是否畅通后重试"
+            is JsonParseException -> "数据解析失败，请联系管理员"
+            is JSONException -> "数据解析失败，请联系管理员"
+            is ParseException -> "数据解析失败，请联系管理员"
+            else -> t.message ?: "未知错误"
+        }
+        activity?.toast(errorMessage)
     }
 
 }

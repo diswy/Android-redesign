@@ -8,9 +8,19 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.JsonParseException
 import kotlinx.coroutines.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.toast
+import org.json.JSONException
+import retrofit2.HttpException
 import xiaofu.lib.base.timer.ITimer
+import java.net.ConnectException
+import java.net.SocketException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import java.text.ParseException
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -126,8 +136,21 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger, CoroutineScope {
         }
     }
 
-    protected open fun handleExceptions(throwable: Throwable) {
-
+    protected open fun handleExceptions(t: Throwable?) {
+        if (t == null) {
+            toast("未知错误")
+            return
+        }
+        val errorMessage = when (t) {
+            is SocketException -> "网络异常，请检查网络重试"
+            is SocketTimeoutException -> "请求超时,请重新尝试"
+            is UnknownHostException -> "您似乎断开了与外网的连接，请检查外网是否畅通后重试"
+            is JsonParseException -> "数据解析失败，请联系管理员"
+            is JSONException -> "数据解析失败，请联系管理员"
+            is ParseException -> "数据解析失败，请联系管理员"
+            else -> t.message ?: "未知错误"
+        }
+        toast(errorMessage)
     }
 
 }

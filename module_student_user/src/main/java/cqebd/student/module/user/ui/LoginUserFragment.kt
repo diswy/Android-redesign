@@ -5,9 +5,7 @@ import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavAction
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import cqebd.student.module.user.R
 import cqebd.student.module.user.databinding.FragmentLoginUserBinding
 import cqebd.student.viewmodel.EbdViewModel
@@ -29,7 +27,6 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
 
     override fun initialize(activity: FragmentActivity, binding: FragmentLoginUserBinding) {
         model = ViewModelProviders.of(activity, BaseApp.instance.factory).get(EbdViewModel::class.java)
-        binding.userModel = model
         binding.setLifecycleOwner(this)
     }
 
@@ -44,20 +41,6 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
             Navigation.findNavController(it).navigate(R.id.action_loginUserFragment_to_resetPwdFragment)
         }
 
-        model.login("xsebd01", "123456").observe(this, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    println("--->>> SUCCESS")
-                    println("--->>> SUCCESS : ${it.data}")
-                }
-                Status.ERROR -> {
-                    println("--->>> ERROR,${it.data},error:${it.throwable}")
-                }
-                Status.LOADING -> {
-                    println("--->>> LOADING")
-                }
-            }
-        })
     }
 
     private fun login(view: View, account: String, pwd: String) {
@@ -75,7 +58,7 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
                     println("--->>> SUCCESS")
                 }
                 Status.ERROR -> {
-                    println("--->>> ERROR,${it.data},error:${it.throwable}")
+                    handleExceptions(it.throwable)
                 }
                 Status.LOADING -> {
                     println("--->>> LOADING")
