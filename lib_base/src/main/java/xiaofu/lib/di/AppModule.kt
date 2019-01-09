@@ -1,7 +1,10 @@
 package xiaofu.lib.di
 
+import androidx.room.Room
 import com.google.gson.Gson
 import com.readystatesoftware.chuck.ChuckInterceptor
+import cqebd.student.db.EbdDb
+import cqebd.student.db.VideoDao
 import cqebd.student.di.EbdViewModelModule
 import cqebd.student.network.EbdVideoService
 import cqebd.student.network.EbdWorkService
@@ -83,6 +86,21 @@ class AppModule {
                 .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
                 .build()
                 .create(EbdVideoService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDb(app: BaseApp):EbdDb{
+        return Room
+                .databaseBuilder(app,EbdDb::class.java,"ebd.db")
+                .fallbackToDestructiveMigration()
+                .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserDao(db: EbdDb): VideoDao {
+        return db.videoDao()
     }
 
 }

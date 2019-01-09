@@ -1,4 +1,4 @@
-package xiaofu.lib.base.bind
+package xiaofu.lib.base.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

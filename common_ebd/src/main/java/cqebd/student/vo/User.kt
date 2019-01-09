@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  * Created by @author xiaofu on 2018/12/18.
  */
 data class User(@SerializedName("studentId")
-                val ID: Long,
+                val ID: Int,
                 val Name: String,// 学生姓名
                 val LoginName: String,// 登陆账号
                 @SerializedName("Tel")

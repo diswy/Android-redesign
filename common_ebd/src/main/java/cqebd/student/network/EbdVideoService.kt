@@ -1,9 +1,12 @@
 package cqebd.student.network
 
-import retrofit2.Call
+import androidx.lifecycle.LiveData
+import cqebd.student.vo.BaseResponse
+import cqebd.student.vo.VideoInfo
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
+import xiaofu.lib.network.ApiResponse
 
 /**
  *
@@ -16,7 +19,7 @@ interface EbdVideoService {
     @FormUrlEncoded
     @POST("api/CoursePeriod/GetCourseList")
     fun getCourseList(
-            @Field("Type") type: Int = 2,
-            @Field("studentid") userId: Long)
-            : Call<String>
+            @Field("studentid") userId: Int,
+            @Field("Type") type: Int = 2)
+            : LiveData<ApiResponse<BaseResponse<List<VideoInfo>>>>
 }

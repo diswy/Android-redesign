@@ -53,9 +53,14 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 is ApiSuccessResponse -> {
                     Observable.just(response)
                             .subscribeOn(Schedulers.io())
+                            .observeOn(Schedulers.io())
+                            .flatMap {
+                                saveCallResult(response.body)
+                                return@flatMap Observable.just(response)
+                            }
+                            .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe {
-                                saveCallResult(response.body)
                                 result.addSource(loadFromDb()) { newData ->
                                     setValue(Resource.success(newData))
                                 }
@@ -78,7 +83,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                     }
                 }
             }
-
         }
     }
 

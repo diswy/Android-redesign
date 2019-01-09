@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import cqebd.student.module.user.R
 import cqebd.student.module.user.databinding.FragmentLoginUserBinding
-import cqebd.student.viewmodel.EbdViewModel
+import cqebd.student.viewmodel.UserViewModel
 import org.jetbrains.anko.design.snackbar
 import xiaofu.lib.BaseApp
 import xiaofu.lib.base.fragment.BaseBindFragment
@@ -21,12 +21,12 @@ import xiaofu.lib.network.Status
  */
 class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
 
-    private lateinit var model: EbdViewModel
+    private lateinit var model: UserViewModel
 
     override fun getLayoutRes(): Int = R.layout.fragment_login_user
 
     override fun initialize(activity: FragmentActivity, binding: FragmentLoginUserBinding) {
-        model = ViewModelProviders.of(activity, BaseApp.instance.factory).get(EbdViewModel::class.java)
+        model = ViewModelProviders.of(activity, BaseApp.instance.factory).get(UserViewModel::class.java)
         binding.setLifecycleOwner(this)
     }
 
@@ -56,6 +56,7 @@ class LoginUserFragment : BaseBindFragment<FragmentLoginUserBinding>() {
             when (it.status) {
                 Status.SUCCESS -> {
                     println("--->>> SUCCESS")
+                    println("--->>> SUCCESS 数据 ${it.data}")
                 }
                 Status.ERROR -> {
                     handleExceptions(it.throwable)
