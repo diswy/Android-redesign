@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="info"
-            type="cqebd.student.vo.VideoInfo"/>
+            name="courseInfo"
+            type="cqebd.student.vo.CourseInfo"/>
 
     </data>
 
@@ -24,7 +24,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/img"
-            app:imageUrl="@{info.Snapshoot}"
+            app:imageUrl="@{courseInfo.Snapshoot}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{info.name}"
+            android:text="@{courseInfo.name}"
             app:layout_constraintStart_toEndOf="@+id/img_screen_short"
             app:layout_constraintTop_toTopOf="@+id/img_screen_short"
             tools:text="面试指导" />

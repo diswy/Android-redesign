@@ -12,6 +12,7 @@ import com.google.gson.JsonParseException
 import kotlinx.coroutines.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.error
 import org.jetbrains.anko.toast
 import org.json.JSONException
 import retrofit2.HttpException
@@ -150,6 +151,7 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger, CoroutineScope {
             is ParseException -> "数据解析失败，请联系管理员"
             else -> t.message ?: "未知错误"
         }
+        log.error { t.message }
         toast(errorMessage)
     }
 

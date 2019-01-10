@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import cqebd.student.vo.CourseInfo
 import cqebd.student.vo.VideoInfo
 
 /**
@@ -17,6 +18,12 @@ interface VideoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertVideoList(videoLists: List<VideoInfo>)
 
-    @Query("SELECT * FROM Videoinfo")
+    @Query("SELECT * FROM VideoInfo")
     fun loadAllVideoList(): LiveData<List<VideoInfo>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCourseList(courseLists: List<CourseInfo>)
+
+    @Query("SELECT * FROM CourseInfo WHERE CourseId = :id")
+    fun loadCourseById(id: Int): LiveData<List<CourseInfo>>
 }

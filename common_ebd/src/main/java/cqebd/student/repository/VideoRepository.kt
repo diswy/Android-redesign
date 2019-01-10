@@ -5,6 +5,7 @@ import cqebd.student.cache.EbdMemoryCache
 import cqebd.student.db.VideoDao
 import cqebd.student.network.EbdVideoService
 import cqebd.student.vo.BaseResponse
+import cqebd.student.vo.CourseInfo
 import cqebd.student.vo.VideoInfo
 import xiaofu.lib.network.ApiResponse
 import xiaofu.lib.network.NetworkBoundResource
@@ -26,6 +27,9 @@ class VideoRepository @Inject constructor(
 ) {
     private val videoRateLimit = RateLimiter<String>(10, TimeUnit.MINUTES)
 
+    /**
+     * 首页大课程列表
+     */
     fun getVideoList(shouldFetch: Boolean = false): LiveData<Resource<List<VideoInfo>>> {
         return object : NetworkBoundResource<List<VideoInfo>, BaseResponse<List<VideoInfo>>>() {
             override fun saveCallResult(item: BaseResponse<List<VideoInfo>>) {
@@ -35,7 +39,7 @@ class VideoRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: List<VideoInfo>?): Boolean {
-                return data.isNullOrEmpty() or shouldFetch or videoRateLimit.shouldFetch("video"+6527)
+                return data.isNullOrEmpty() or shouldFetch or videoRateLimit.shouldFetch("video" + 6527)
             }
 
             override fun loadFromDb(): LiveData<List<VideoInfo>> {
@@ -50,4 +54,30 @@ class VideoRepository @Inject constructor(
         }.asLiveData()
     }
 
+    /**
+     * 大课程包含的子课时列表
+     */
+    fun getCourseList(courseId: Int, shouldFetch: Boolean = false): LiveData<Resource<List<CourseInfo>>> {
+        return object : NetworkBoundResource<List<CourseInfo>, BaseResponse<List<CourseInfo>>>() {
+            override fun saveCallResult(item: BaseResponse<List<CourseInfo>>) {
+                if (item.data != null) {
+                    videoDao.insertCourseList(item.data)
+                }
+            }
+
+            override fun shouldFetch(data: List<CourseInfo>?): Boolean {
+                return data.isNullOrEmpty() or shouldFetch or videoRateLimit.shouldFetch("course" + courseId + 6527)
+            }
+
+            override fun loadFromDb(): LiveData<List<CourseInfo>> {
+                return videoDao.loadCourseById(courseId)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<List<CourseInfo>>>> {
+//                return videoService.getPeriodCourseList(courseId,memoryCache.getId())
+                return videoService.getPeriodCourseList(courseId, 6527)
+            }
+
+        }.asLiveData()
+    }
 }

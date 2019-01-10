@@ -10,6 +10,7 @@ import com.google.gson.JsonParseException
 import xiaofu.lib.base.timer.ITimer
 import kotlinx.coroutines.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.error
 import org.jetbrains.anko.toast
 import org.json.JSONException
 import java.net.SocketException
@@ -97,6 +98,7 @@ abstract class BaseFragment : Fragment(), AnkoLogger, CoroutineScope {
             is ParseException -> "数据解析失败，请联系管理员"
             else -> t.message ?: "未知错误"
         }
+        log.error { t.message }
         activity?.toast(errorMessage)
     }
 

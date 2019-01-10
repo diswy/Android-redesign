@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import cqebd.student.module.video.R
 import cqebd.student.module.video.databinding.FragmentHomeVideoBinding
 import cqebd.student.viewmodel.VideoViewModel
@@ -41,20 +42,34 @@ class HomeVideoFragment : BaseBindFragment<FragmentHomeVideoBinding>() {
         model.videoList.observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
-                    println("--->>> 视频 SUCCESS ${it.data}")
+                    binding.include.refreshLayout.finishRefresh(true)
                     adapter.setNewData(it.data)
                 }
                 Status.ERROR -> {
                     handleExceptions(it.throwable)
                 }
                 Status.LOADING -> {
-                    println("--->>> 视频 LOADING")
                 }
             }
         })
 
         model.getVideoList()
+    }
 
+    override fun bindListener(binding: FragmentHomeVideoBinding) {
+        binding.include.refreshLayout.setOnRefreshListener {
+            model.getVideoList(true)
+        }
+
+        adapter.setOnItemClickListener { _, _, position ->
+
+            val item = adapter.getItem(position)!!
+
+            ARouter.getInstance().build("/module_video/course_detail")
+                    .withString("img", item.Snapshoot)
+                    .withInt("id", item.Id)
+                    .navigation()
+        }
     }
 
 }
