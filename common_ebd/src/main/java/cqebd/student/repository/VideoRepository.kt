@@ -5,10 +5,12 @@ import cqebd.student.cache.EbdMemoryCache
 import cqebd.student.db.VideoDao
 import cqebd.student.network.EbdVideoService
 import cqebd.student.vo.BaseResponse
+import cqebd.student.vo.CourseDetail
 import cqebd.student.vo.CourseInfo
 import cqebd.student.vo.VideoInfo
 import xiaofu.lib.network.ApiResponse
 import xiaofu.lib.network.NetworkBoundResource
+import xiaofu.lib.network.NetworkResource
 import xiaofu.lib.network.Resource
 import xiaofu.lib.utils.RateLimiter
 import java.util.concurrent.TimeUnit
@@ -76,6 +78,19 @@ class VideoRepository @Inject constructor(
             override fun createCall(): LiveData<ApiResponse<BaseResponse<List<CourseInfo>>>> {
 //                return videoService.getPeriodCourseList(courseId,memoryCache.getId())
                 return videoService.getPeriodCourseList(courseId, 6527)
+            }
+
+        }.asLiveData()
+    }
+
+    fun getCourseInfo(courseId: Int): LiveData<Resource<BaseResponse<CourseDetail>>> {
+        return object : NetworkResource<BaseResponse<CourseDetail>>() {
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<CourseDetail>>> {
+                return videoService.getCourseDetailByID(courseId, 6527)
+            }
+
+            override fun saveResult(item: BaseResponse<CourseDetail>) {
+
             }
 
         }.asLiveData()

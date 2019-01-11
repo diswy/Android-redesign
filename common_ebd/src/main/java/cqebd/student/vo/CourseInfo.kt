@@ -1,13 +1,16 @@
 package cqebd.student.vo
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 /**
  *
  * Created by @author xiaofu on 2019/1/10.
  */
+@Parcelize
 @Entity
 data class CourseInfo(
         @PrimaryKey val Id: Int,
@@ -35,4 +38,4 @@ data class CourseInfo(
         @ColumnInfo(name = "TeachingMaterialSectionId") val TeachingMaterialSectionId: Int,
         @ColumnInfo(name = "TeachingMaterialTypeId") val TeachingMaterialTypeId: Int,
         @ColumnInfo(name = "Type") val Type: Int
-)
+) : Parcelable

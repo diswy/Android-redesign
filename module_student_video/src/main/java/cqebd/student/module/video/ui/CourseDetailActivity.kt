@@ -10,7 +10,6 @@ import cqebd.student.module.video.R
 import cqebd.student.module.video.databinding.ActivityCourseDetailBinding
 import cqebd.student.viewmodel.VideoViewModel
 import cqebd.student.vo.CourseInfo
-import cqebd.student.vo.VideoInfo
 import org.jetbrains.anko.toast
 import xiaofu.lib.BaseApp
 import xiaofu.lib.base.activity.BaseToolbarBindActivity
@@ -63,7 +62,19 @@ class CourseDetailActivity : BaseToolbarBindActivity<ActivityCourseDetailBinding
             }
         })
 
+    }
+
+    override fun requestNetwork() {
         model.getCourseList(id)
+    }
+
+    override fun bindListener(binding: ActivityCourseDetailBinding) {
+        adapter.setOnItemClickListener { _, _, position ->
+            val item = adapter.getItem(position)!!
+            ARouter.getInstance().build("/module_video/player_record")
+                    .withParcelable("info",item)
+                    .navigation()
+        }
     }
 
 }
