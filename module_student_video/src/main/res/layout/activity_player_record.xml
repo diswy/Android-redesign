@@ -6,10 +6,15 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#ccc"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
+        <xiaofu.lib.player.view.Player
+            android:background="@color/black"
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

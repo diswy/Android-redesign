@@ -83,7 +83,7 @@ class VideoRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun getCourseInfo(courseId: Int): LiveData<Resource<BaseResponse<CourseDetail>>> {
+    fun getCourseDetail(courseId: Int): LiveData<Resource<BaseResponse<CourseDetail>>> {
         return object : NetworkResource<BaseResponse<CourseDetail>>() {
             override fun createCall(): LiveData<ApiResponse<BaseResponse<CourseDetail>>> {
                 return videoService.getCourseDetailByID(courseId, 6527)

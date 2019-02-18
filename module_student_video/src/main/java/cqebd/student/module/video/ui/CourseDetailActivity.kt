@@ -71,6 +71,7 @@ class CourseDetailActivity : BaseToolbarBindActivity<ActivityCourseDetailBinding
     override fun bindListener(binding: ActivityCourseDetailBinding) {
         adapter.setOnItemClickListener { _, _, position ->
             val item = adapter.getItem(position)!!
+            // 根据课程信息的几个字段来判断是录播、直播、互动直播.理论有3种模式
             ARouter.getInstance().build("/module_video/player_record")
                     .withParcelable("info",item)
                     .navigation()

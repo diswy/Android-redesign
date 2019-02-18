@@ -31,4 +31,5 @@ class VideoViewModel @Inject constructor(private val videoRepository: VideoRepos
         }
     }
 
+    fun getCourseDetail(id: Int) = videoRepository.getCourseDetail(id)
 }
