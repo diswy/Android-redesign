@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.readystatesoftware.chuck.ChuckInterceptor
 import cqebd.student.db.EbdDb
 import cqebd.student.db.VideoDao
+import cqebd.student.db.WorkDao
 import cqebd.student.di.EbdViewModelModule
 import cqebd.student.network.EbdVideoService
 import cqebd.student.network.EbdWorkService
@@ -101,6 +102,12 @@ class AppModule {
     @Provides
     fun provideUserDao(db: EbdDb): VideoDao {
         return db.videoDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWorkDao(db: EbdDb): WorkDao {
+        return db.workDao()
     }
 
 }

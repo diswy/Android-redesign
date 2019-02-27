@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import cqebd.student.viewmodel.UserViewModel
 import cqebd.student.viewmodel.VideoViewModel
+import cqebd.student.viewmodel.WorkViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -27,6 +28,11 @@ abstract class EbdViewModelModule {
     @IntoMap
     @ViewModelKey(VideoViewModel::class)
     abstract fun bindVideoViewModel(videoViewModel: VideoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WorkViewModel::class)
+    abstract fun bindWorkViewModel(workViewModel: WorkViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

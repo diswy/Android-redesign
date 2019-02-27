@@ -31,6 +31,9 @@ class PlayerRecordActivity : BaseBindActivity<ActivityPlayerRecordBinding>() {
     private lateinit var model: VideoViewModel
     private lateinit var mPlayer: Player
 
+    override fun isKeepScreenOn(): Boolean = true
+    override fun isTranslucentMode(): Boolean = true
+
     override fun getLayoutRes(): Int = R.layout.activity_player_record
 
     override fun initialize(binding: ActivityPlayerRecordBinding) {

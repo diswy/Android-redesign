@@ -8,10 +8,15 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 import com.squareup.leakcanary.LeakCanary
+import xiaofu.lib.base.BuildConfig
 import xiaofu.lib.base.IBaseApplication
 import xiaofu.lib.di.DaggerAppComponent
 import javax.inject.Inject
+
 
 /**
  *
@@ -20,7 +25,8 @@ import javax.inject.Inject
 class BaseApp : Application() {
     private val moduleList = arrayOf(
             "cqebd.student.module.user.UserApp",
-            "cqebd.student.module.video.VideoApp")
+            "cqebd.student.module.video.VideoApp",
+            "cqebd.student.module.work.WorkApp")
 
     companion object {
         lateinit var instance: BaseApp
@@ -49,6 +55,7 @@ class BaseApp : Application() {
         ARouter.init(this)
 
         modulesAppInit()
+        initLogger()
         registerNetworkChanged()
     }
 
@@ -75,6 +82,20 @@ class BaseApp : Application() {
         }
     }
 
+    /**
+     * Logger初始化
+     */
+    private fun initLogger() {
+        val formatStrategy = PrettyFormatStrategy.newBuilder()
+                .tag("cqebd")
+                .build()
+        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
+            override fun isLoggable(priority: Int, tag: String?): Boolean {
+                return BuildConfig.SHOW_LOG
+            }
+        })
+    }
+
     private fun registerNetworkChanged() {
         val conn = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val builder = NetworkRequest.Builder()
@@ -88,6 +109,7 @@ class BaseApp : Application() {
                 println("--->>> onUnavailable")
 
             }
+
             override fun onAvailable(network: Network?) {
                 super.onAvailable(network)
                 println("--->>> onAvailable")

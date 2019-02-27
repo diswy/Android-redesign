@@ -14,8 +14,14 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("boolean", "SHOW_LOG", "false")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField("boolean", "SHOW_LOG", "true")
+            minifyEnabled false
         }
     }
 
@@ -52,7 +58,7 @@ dependencies {
     api deps.retrofit.runtime
     api deps.retrofit.gson
     api deps.retrofit.rx2
-    api (deps.glide.core){
+    api(deps.glide.core) {
         exclude group: "com.android.support"
     }
     api deps.dagger2.core
@@ -70,6 +76,10 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-1'
     // brvah
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
+    // Logger
+    api 'com.orhanobut:logger:2.2.0'
+    // AgentWeb
+    api 'com.just.agentweb:agentweb:4.0.2'
 
     kapt deps.kapt.arouter_compiler
     kapt deps.kapt.databinding_compiler

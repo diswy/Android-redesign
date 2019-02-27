@@ -16,6 +16,6 @@ import cqebd.student.vo.VideoInfo
         exportSchema = false
 )
 abstract class EbdDb : RoomDatabase() {
-
     abstract fun videoDao(): VideoDao
+    abstract fun workDao(): WorkDao
 }

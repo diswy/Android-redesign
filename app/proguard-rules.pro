@@ -96,6 +96,10 @@
 -keep public class * extends com.chad.library.adapter.base.BaseViewHolder
 -keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {<init>(...);}
 
+# AgentWeb混淆
+-keep class com.just.agentweb.** {*;}
+-dontwarn com.just.agentweb.**
+
 # 自定义实体不参与混淆
 -keep class cqebd.student.vo.**{*;}
 # 继承View的自定义控件不参与混淆

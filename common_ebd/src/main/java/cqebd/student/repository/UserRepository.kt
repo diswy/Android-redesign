@@ -24,6 +24,9 @@ class UserRepository @Inject constructor(
         private val app: Application
 ) {
 
+    /**
+     * 用户登陆
+     */
     fun getUser(account: String, password: String): LiveData<Resource<BaseResponse<User>>> {
         return object : NetworkResource<BaseResponse<User>>() {
             override fun saveResult(item: BaseResponse<User>) {

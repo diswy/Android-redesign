@@ -23,6 +23,7 @@ class MainActivity : BaseBindActivity<ActivityMainBinding>(), BottomNavigationBa
 
     override fun initialize(binding: ActivityMainBinding) {
         binding.mainTab.addItem(BottomNavigationItem(R.drawable.main_tab_video, "首页").setActiveColor(Color.parseColor("#33e5e5")))
+                .addItem(BottomNavigationItem(R.drawable.main_tab_mine, "作业").setActiveColor(Color.parseColor("#33e5e5")))
                 .addItem(BottomNavigationItem(R.drawable.main_tab_mine, "我的").setActiveColor(Color.parseColor("#33e5e5")))
                 .setBarBackgroundColor(R.color.colorPrimary)
                 .initialise()
@@ -49,6 +50,11 @@ class MainActivity : BaseBindActivity<ActivityMainBinding>(), BottomNavigationBa
                             .navigation() as Fragment)
                 }
                 1 -> {
+                    replace(R.id.home_frag_container, ARouter.getInstance()
+                            .build("/module_work/home")
+                            .navigation() as Fragment)
+                }
+                2 -> {
                     replace(R.id.home_frag_container, ARouter.getInstance()
                             .build("/module_user/home")
                             .navigation() as Fragment)
