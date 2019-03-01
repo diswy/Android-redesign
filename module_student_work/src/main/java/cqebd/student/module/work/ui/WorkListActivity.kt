@@ -1,13 +1,13 @@
 package cqebd.student.module.work.ui
 
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.orhanobut.logger.Logger
 import cqebd.student.module.work.R
 import cqebd.student.module.work.databinding.ActivityWorkListBinding
@@ -31,8 +31,20 @@ class WorkListActivity : BaseBindActivity<ActivityWorkListBinding>() {
 
         adapter = object : BaseBindAdapter<WorkInfo>(R.layout.item_work_normal) {
             override fun convert(helper: BaseBindHolder?, item: WorkInfo?) {
-                helper?.getBinding()?.setVariable(BR.workNormalInfo, item)
-                helper?.getBinding()?.executePendingBindings()
+                helper ?: return
+                item ?: return
+
+                helper.getBinding().setVariable(BR.workNormalInfo, item)
+                helper.getBinding().executePendingBindings()
+
+                val status = when (item.Status) {
+                    -1 -> "新作业"
+                    0 -> "答题中"
+                    1 -> "已完成"
+                    2 -> "已批阅"
+                    else -> "默认"
+                }
+                helper.setText(R.id.tv_status, status)
             }
         }
 
@@ -49,33 +61,19 @@ class WorkListActivity : BaseBindActivity<ActivityWorkListBinding>() {
         model.workList.observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
-                    println("--->>>数据 获取成功:数据内容：${it.data}")
-                    binding.include.refreshLayout.finishRefresh(true)
-                    adapter.setNewData(it.data)
-                }
-                Status.ERROR -> {
-                    handleExceptions(it.throwable)
-                }
-                Status.LOADING -> {
-                }
-            }
-        })
-
-//        model.getWorkList()
-
-        model.test().observe(this, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
+                    adapter.setNewData(it.data?.data)
                     Logger.d(it.data?.data)
                 }
                 Status.ERROR -> {
                     handleExceptions(it.throwable)
                 }
                 Status.LOADING -> {
-                    println("--->>> LOADING")
+                    Logger.d("作业列表加载中...")
                 }
             }
         })
+
+        model.getWorkList()
     }
 
     override fun bindListener(binding: ActivityWorkListBinding) {
@@ -83,7 +81,21 @@ class WorkListActivity : BaseBindActivity<ActivityWorkListBinding>() {
         adapter.setOnItemClickListener { _, _, position ->
             // 根据状态进入不同界面
             // status -1 初始状态、0 答题中、1 已交卷、2 已批阅
-            val item = adapter.getItem(position)
+            val item = adapter.getItem(position) ?: return@setOnItemClickListener
+            when (item.Status) {
+                -1, 0 -> {
+                    ARouter.getInstance()
+                            .build("/module_work/web/look_result")
+                            .withParcelable("workInfo", item)
+                            .navigation()
+                }
+                1, 2 -> {
+                    ARouter.getInstance()
+                            .build("/module_work/web/look_result")
+                            .withParcelable("workInfo", item)
+                            .navigation()
+                }
+            }
         }
     }
 }

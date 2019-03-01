@@ -3,7 +3,8 @@
     package="cqebd.student.module.work">
 
     <application>
-        <activity android:name=".ui.WorkListActivity"></activity>
+        <activity android:name=".ui.WorkListActivity" />
+        <activity android:name=".ui.LookResultWebActivity" />
     </application>
 
 </manifest>

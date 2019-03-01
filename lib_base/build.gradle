@@ -80,6 +80,8 @@ dependencies {
     api 'com.orhanobut:logger:2.2.0'
     // AgentWeb
     api 'com.just.agentweb:agentweb:4.0.2'
+    // Lottie
+    api 'com.airbnb.android:lottie:2.8.0'
 
     kapt deps.kapt.arouter_compiler
     kapt deps.kapt.databinding_compiler

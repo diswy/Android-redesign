@@ -67,5 +67,6 @@ abstract class NetworkResource<RequestType>
     protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
 
     @WorkerThread
-    protected abstract fun saveResult(item: RequestType)
+    protected open fun saveResult(item: RequestType) {
+    }
 }

@@ -11,13 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonParseException
 import kotlinx.coroutines.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.error
 import org.jetbrains.anko.toast
 import org.json.JSONException
-import retrofit2.HttpException
 import xiaofu.lib.base.timer.ITimer
-import java.net.ConnectException
 import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

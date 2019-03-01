@@ -20,4 +20,8 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="AppTheme.launcher" parent="AppTheme.Translucent.Light">
+        <item name="android:background">@drawable/bg_splash</item>
+    </style>
+
 </resources>

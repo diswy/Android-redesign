@@ -63,7 +63,7 @@ class HomeVideoFragment : BaseBindFragment<FragmentHomeVideoBinding>() {
 
         adapter.setOnItemClickListener { _, _, position ->
 
-            val item = adapter.getItem(position)!!
+            val item = adapter.getItem(position) ?: return@setOnItemClickListener
 
             ARouter.getInstance().build("/module_video/course_detail")
                     .withString("img", item.Snapshoot)
